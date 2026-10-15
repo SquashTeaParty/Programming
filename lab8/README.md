@@ -8,3 +8,6 @@
 3.	Вызывается виртуальная функция Arrival для каждого монстра
 
 **Программный код:** [main.cpp](./Code/src/main.cpp)
+
+**Результат программы:**
+<img width="554" height="401" alt="image" src="https://github.com/user-attachments/assets/d6d67e11-b516-4a2f-9d33-52ba7b962306" />
