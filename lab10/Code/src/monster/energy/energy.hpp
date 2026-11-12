@@ -1,4 +1,5 @@
 #pragma once
+#include "../log/log.hpp"
 #include "monster.hpp"
 #include <string>
 

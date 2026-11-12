@@ -199,49 +199,15 @@
 // Methods
     void Monster::Deal_Damage(Monster& targ, double dmg) const
     {
-        std::cout << "Health before = " << targ.getHealth() << "\n";
+        log("Info", targ.getName() + " health: " + std::to_string(targ.getHealth()) + " --> " + std::to_string(std::max(0.0, targ.getHealth() - dmg)) );
         targ.setHealth(std::max(0.0, targ.getHealth() - dmg));
-        std::cout << "Health after  = " << targ.getHealth() << "\n";
     }
 
     void Monster::Arrival() const {
-        std::cout << "Boring ah " << getName() << " arrived.\n";
+        // Maybe will be needed?
     }
 
 // Funcs
     void MonsterFight(Monster& A, Monster& B) {
-
-        double hpA = A.getHealth();
-        double hpB = B.getHealth();
-
-        if (!A.isAlive() || !B.isAlive()) {
-            std::cout << "One of the monsters is dead. Fight is invalid!\n";
-            return;
-        }
-        if (!hpA || !hpB) {
-            std::cout << "One of the monsters is fainted. Fight is invalid!\n";
-            return;
-        }
-
-        std::string nameA = A.getName();
-        std::string nameB = B.getName();
-
-        A.Deal_Damage(B, hpA);
-        B.Deal_Damage(A, hpB);
-
-        hpA = A.getHealth();
-        hpB = B.getHealth();
-
-        int winsA = A.getWins();
-        int winsB = B.getWins();
-
-        if (hpA == hpB) {
-            std::cout << "Both monsters have fainted. No winner!\n";
-        } else if (hpA > hpB) {
-            A.setWins(winsA + 1);
-            std::cout << nameA << " won! Wins: " << winsA + 1 << "\n";
-        } else {
-            B.setWins(winsB + 1);
-            std::cout << nameB << " won! Wins: " << winsB + 1 << "\n";
-        }
+        // Probably will not be needed
     }

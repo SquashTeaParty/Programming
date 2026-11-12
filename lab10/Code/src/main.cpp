@@ -8,37 +8,59 @@
 
 using namespace std;
 
+// Tmp func
+void DeleteScene(Scene& s)
+{
+    //log("Info", "Scene delete start");
+    for (int i = 0; i < s.size(); ++i)
+        delete s.unit_[i];
+    //log("Info", "Scene delete end");
+}
 
 int main() {
     log("Info", "Start");
+
     Scene s1("Earth");
 
-    cout << "\n---- Make a Monster ----\n";
-    
-    Energy* a = new Energy("GG", true, 2., 0, "Original", false);
-    Alien* b = new Alien("Elon", true, 2., 0, "Nibiru", true);
+    Monster* a = Scene::Create("energy");
+    Monster* b = Scene::Create("alien");
     Monster* c = nullptr;
-    int choice = 0;
 
+    s1.SetEnergyTaste(a, "Tornado");
+    s1.SetEnergySugar(a, true);
+    s1.SetAlienPlanet(b, "Nibiru");
+    s1.SetAlienProbing(b, true);
+
+    cout << "\n---- Make a Monster ----\n";
     cout << "[1] Energy\n"
          << "[2] Alien\n"
          << "Choice: ";
-
+    int choice = 0;
     cin >> choice;
-    if(choice != 1 && choice != 2) {
+    if (choice != 1 && choice != 2) {
         cerr << "Error: try harder next time\n";
-        return -1; 
+        DeleteScene(s1);
+        
+        return -1;
     }
-    cout << "\n";
+
     switch (choice)
     {
         case(1) :
-            c = new Energy("Tornado", true, 2., 0, "Original", true);
+            c = Scene::Create("energy");
             break;
 
         case(2) :
-            c = new Alien("Elon", true, 14., 3, "Nebiru", false);
+            c = Scene::Create("alien");
             break;
+    }
+    
+    if (auto* e = dynamic_cast<Energy*>(c)) {
+        s1.SetEnergyTaste(e, "Original");
+        s1.SetEnergySugar(e, false);
+    } else if (auto* al = dynamic_cast<Alien*>(c)) {
+        s1.SetAlienPlanet(al, "Nebiru");
+        s1.SetAlienProbing(al, false);
     }
 
     s1.Add(a);
@@ -49,9 +71,9 @@ int main() {
 
     s1.Rumble();
 
-    for(int i=0; i < s1.size(); i++) {
-        delete s1.unit_[i];
-    }
+    DeleteScene(s1);
 
     log("Info", "End");
+
+    return 0;
 }
