@@ -42,7 +42,7 @@ int main() {
             throw MonsterError("invalid monster type choice: " + std::to_string(choice));
         }
 
-        cout << "\n\tEnter name: ";
+        cout << "\tEnter name: ";
         std::string name;
         cin >> name;
 

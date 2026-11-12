@@ -8,7 +8,7 @@
         if (name.empty())                           throw std::invalid_argument("name must be set");
         if (health < 0.0 || health > 10000.0)       throw std::out_of_range("health must be in [0.0, 10000.0]");
         if (wins < 0)                               throw MonsterError("wins can't be negative");
-        //if (!alive && health > 0.0)                 throw MonsterError("dead monster must have zero health"); 
+        if (!alive && health > 0.0)                 throw MonsterError("dead monster must have zero health"); 
     }
 
 // Clean
