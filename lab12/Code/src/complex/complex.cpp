@@ -7,7 +7,7 @@
         log("Log", "");
     }
 
-    Complex::Complex(int r, int i)
+    Complex::Complex(double r, double i)
         : real_(r), imaginary_(i)
     {
         log("Log", "");
@@ -54,11 +54,38 @@
                         real_ * other.imaginary_ + imaginary_ * other.real_);
         }
 
+        Complex Complex::operator/(const Complex& other) const
+        {
+            double div = other.real_ * other.real_ + other.imaginary_ * other.imaginary_;
+            if (div == 0.0)
+                throw std::domain_error("Division by zero complex number");
+
+            double real = (real_ * other.real_ + imaginary_ * other.imaginary_) / div;
+            double imaginary = (imaginary_ * other.real_ - real_ * other.imaginary_) / div;
+
+            return Complex(real, imaginary);
+        }
+
 
     // Compar
         bool Complex::operator>(const Complex& other) const
         {
             return Modulo() > other.Modulo();
+        }
+
+        bool Complex::operator<(const Complex& other) const
+        {
+            return Modulo() < other.Modulo();
+        }
+
+        bool Complex::operator==(const Complex& other) const
+        {
+            return Modulo() == other.Modulo();
+        }
+
+        bool Complex::operator!=(const Complex& other) const
+        {
+            return Modulo() != other.Modulo();
         }
         
 
@@ -80,6 +107,23 @@
             return tmp;
         }
 
+        Complex& Complex::operator--()
+        {
+            --real_;
+            --imaginary_;
+
+            return *this;
+        }
+
+        Complex Complex::operator--(int)
+        {
+            Complex tmp = *this;
+
+            --(*this);
+
+            return tmp;
+        }
+
         Complex& Complex::operator+=(const Complex& other)
         {
             real_ += other.real_;
@@ -92,8 +136,11 @@
     // iostream is friend
         std::ostream& operator<<(std::ostream& out, const Complex& c)
         {
-            out << "Complex num: r = " << c.real_
-                << ", i = " << c.imaginary_ << "\n";
+            out << c.real_;
+            if(c.imaginary_ == 1)       out << " + i ";
+            else if(c.imaginary_ == -1) out << " - i ";
+            else if(c.imaginary_ > 0)   out << " + " << c.imaginary_ << "i ";
+            else if(c.imaginary_ < 0)   out << " "   << c.imaginary_ << "i ";
 
             return out;
         }
@@ -108,13 +155,13 @@
         }
 
 // Methods
-    void Complex::Show() const
-    {
-        std::cout << real_;
-        if(imaginary_ == 1)     std::cout << " + " << "i ";
-        else if(imaginary_ > 0) std::cout << " + " << imaginary_ << "i ";
-        else if(imaginary_ < 0) std::cout << " " << imaginary_ << "i ";
-    };
+    // void Complex::Show() const
+    // {
+    //     std::cout << real_;
+    //     if(imaginary_ == 1)     std::cout << " + " << "i ";
+    //     else if(imaginary_ > 0) std::cout << " + " << imaginary_ << "i ";
+    //     else if(imaginary_ < 0) std::cout << " " << imaginary_ << "i ";
+    // };
 
     double Complex::Modulo() const
     {

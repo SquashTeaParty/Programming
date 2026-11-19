@@ -6,13 +6,13 @@
 
 class Complex
 {
-    int real_;
-    int imaginary_;
+    double real_;
+    double imaginary_;
 
 public:
     // Construc
         Complex();
-        Complex(int real, int imag);
+        Complex(double real, double imaginary);
 
     // Copy
         Complex(const Complex& other);
@@ -23,17 +23,24 @@ public:
         // Arithmetics
             Complex& operator=(const Complex& other);
             Complex operator+(const Complex& other) const;
-            Complex operator*(const Complex& other) const;
             Complex operator-(const Complex& other) const;
+            Complex operator*(const Complex& other) const;
+            Complex operator/(const Complex& other) const;
 
 
     // Compar
         bool operator>(const Complex& other) const;
+        bool operator<(const Complex& other) const;
+        bool operator==(const Complex& other) const;
+        bool operator!=(const Complex& other) const;
 
 
     // Increment
-        Complex& operator++();      // pre
-        Complex  operator++(int);   // post
+        Complex& operator++();                                                  // pre
+        Complex  operator++(int);                                               // post
+    // Decrement
+        Complex& operator--();                                                  // pre
+        Complex  operator--(int);                                               // post
 
         Complex& operator+=(const Complex& other);
 
@@ -43,6 +50,6 @@ public:
         friend std::istream& operator>>(std::istream& in, Complex& c);
 
     // Methods
-        void Show() const;
+        // void Show() const;
         double  Modulo() const;
 };
